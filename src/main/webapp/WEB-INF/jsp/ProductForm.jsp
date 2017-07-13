@@ -11,37 +11,29 @@
 <body>
 
 <div id="global">
-<form:form commandName="product" action="product_save" method="post">
+<form:form commandName="product" action="product_save" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend>Add a product</legend>
-        <p class="errorLine">
+        <p>
+            <label for="name">Product Name: </label>
+            <form:input id="name" path="name" cssErrorClass="error"/>
             <form:errors path="name" cssClass="error"/>
         </p>
         <p>
-            <label for="name">*Product Name: </label>
-            <form:input id="name" path="name" tabindex="1"/>
-        </p>
-        <p>
             <label for="description">Description: </label>
-            <form:input id="description" path="description" tabindex="2"/>
-        </p>
-        <p class="errorLine">
-            <form:errors path="price" cssClass="error"/>
+            <form:input id="description" path="description"/>
         </p>
         <p>
-            <label for="price">*Price: </label>
-            <form:input id="price" path="price" tabindex="3"/>
-        </p>
-        <p class="errorLine">
-            <form:errors path="productionDate" cssClass="error"/>
+            <label for="price">Price: </label>
+            <form:input id="price" path="price" cssErrorClass="error"/>
         </p>
         <p>
-            <label for="productionDate">*Production Date: </label>
-            <form:input id="productionDate" path="productionDate" tabindex="4"/>
+            <label for="image">Product Image: </label>
+            <input type="file" name="images"/>
         </p>
         <p id="buttons">
-            <input id="reset" type="reset" tabindex="5">
-            <input id="submit" type="submit" tabindex="6" 
+            <input id="reset" type="reset" tabindex="4">
+            <input id="submit" type="submit" tabindex="5" 
                 value="Add Product">
         </p>
     </fieldset>
