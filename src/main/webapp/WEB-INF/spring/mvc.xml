@@ -22,7 +22,10 @@
     <property name="prefix" value="/WEB-INF/jsp/" />
     <property name="suffix" value=".jsp" />
   </bean>
- 
+ <bean id="messageSource" 
+            class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/resource/messages" />
+    </bean>
     <bean id="conversionService" 
             class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatterRegistrars">

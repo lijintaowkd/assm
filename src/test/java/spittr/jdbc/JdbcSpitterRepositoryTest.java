@@ -1,4 +1,4 @@
-package spittr.jdbc;
+/*package spittr.jdbc;
 
 import static org.junit.Assert.assertEquals;
 
@@ -117,3 +117,4 @@ public class JdbcSpitterRepositoryTest {
   }
 
 }
+*/
