@@ -8,6 +8,8 @@ import mvcaction.domain.Category;
 
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public class BookServiceImpl implements BookService {
     
@@ -35,10 +37,12 @@ public class BookServiceImpl implements BookService {
                 category1, "Jayden Ky"));
     }
 
+    @Override
     public List<Category> getAllCategories() {
         return categories;
     }
     
+    @Override
     public Category getCategory(int id) {
         for (Category category : categories) {
             if (id == category.getId()) {
@@ -48,16 +52,19 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
+    @Override
     public List<Book> getAllBooks() {
         return books;
     }
 
+    @Override
     public Book save(Book book) {
         book.setId(getNextId());
         books.add(book);
         return book;
     }
 
+    @Override
     public Book get(long id) {
         for (Book book : books) {
             if (id == book.getId()) {
@@ -67,6 +74,7 @@ public class BookServiceImpl implements BookService {
         return null;
     }
     
+    @Override
     public Book update(Book book) {
         int bookCount = books.size();
         for (int i = 0; i < bookCount; i++) {
@@ -79,6 +87,7 @@ public class BookServiceImpl implements BookService {
         return book;
     }
     
+    @Override
     public long getNextId() {
         // needs to be locked
         long id = 0L;

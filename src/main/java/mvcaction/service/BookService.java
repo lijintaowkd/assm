@@ -5,6 +5,7 @@ import java.util.List;
 import mvcaction.domain.Book;
 import mvcaction.domain.Category;
 
+
 public interface BookService {
     
     List<Category> getAllCategories();
