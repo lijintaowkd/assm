@@ -37,7 +37,7 @@ public class JdbcConfig {
     ds.setUrl("jdbc:mysql://127.0.0.1:3306/spittr");
     ds.setUsername("root");
     ds.setPassword("555769");
-    ds.setInitialSize(5);
+    ds.setInitialSize(9);
     ds.setMaxActive(10);
     return ds;
   }
