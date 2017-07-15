@@ -8,6 +8,10 @@
   <param-name>contextConfigLocation</param-name>
   <param-value>/WEB-INF/spring/root-config.xml</param-value>
  </context-param>
+<context-param>
+  <param-name>spring.profiles.default</param-name>
+  <param-value>qa</param-value>
+ </context-param>
 
  <listener>
   <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -20,9 +24,46 @@
   	<param-name>contextConfigLocation</param-name>
   	<param-value></param-value>
   </init-param>
+   <init-param>
+  	<param-name>spring.profiles.default</param-name>
+  	<param-value>qa</param-value>
+  </init-param>
   <load-on-startup>1</load-on-startup>
  </servlet>
 
+  <!-- 编码过滤器 -->
+     <filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+    </filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- jsp的配置 -->
+  <jsp-config>
+    <jsp-property-group>
+    	 <!-- 配置拦截所有的jsp页面  -->
+      <url-pattern>*.jsp</url-pattern>
+       <!-- 可以使用el表达式  -->
+      <el-ignored>false</el-ignored>
+      <!-- 不能在页面使用java脚本 -->
+      <scripting-invalid>true</scripting-invalid>
+      <!-- 给所有的jsp页面导入要依赖的库，tablib.jsp就是一个全局的标签库文件  -->
+      <include-prelude>/WEB-INF/jsp/taglib.jsp</include-prelude>
+    </jsp-property-group>
+  </jsp-config>
+  
+  <error-page>
+    <error-code>404</error-code>
+    <location>/404.html</location>
+  </error-page>
+  
  <servlet-mapping>
   <servlet-name>assm</servlet-name>
   <url-pattern>/</url-pattern>

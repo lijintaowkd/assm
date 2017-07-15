@@ -25,9 +25,17 @@
 	
 	<script type="text/javascript">
 		$(function(){
+		
 	 	   /** 获取上一次选中的部门数据 */
 	 	   var boxs  = $("input[type='checkbox'][id^='box_']");
-	 	   
+	 		
+		  /** 给全选按钮绑定点击事件  */
+		   $("#checkAll").click(function(){
+		   // this是checkAll  this.checked是true
+		   // 所有数据行的选中状态与全选的状态一致
+		    boxs.attr("checked",this.checked);
+		   	})
+		   	
 	 	  /** 给数据行绑定鼠标覆盖以及鼠标移开事件  */
 	    	$("tr[id^='data_']").hover(function(){
 	    		$(this).css("backgroundColor","#eeccff");
@@ -82,8 +90,8 @@
 				    <table width="100%" border="0" cellpadding="0" cellspacing="0">
 					  <tr>
 					    <td class="font3">
-					    	用户名：<input type="text" name="username">
-					    	用户状态：<input type="text" name="status">
+					    	用户名：<input id="name" type="text" name="username" value="${user.username}">
+					    	用户状态：<input id="status" type="text" name="status" value="${user.status }">
 					    	 <input type="submit" value="搜索"/>
 					    	<input id="delete" type="button" value="删除"/>
 					    </td>
@@ -133,7 +141,7 @@
 	  	        pageSize="${requestScope.pageModel.pageSize}" 
 	  	        recordCount="${requestScope.pageModel.recordCount}" 
 	  	        style="digg"
-	  	        submitUrl="${ctx}/employee/selectEmployee?pageIndex={0}"/>
+	  	        submitUrl="${ctx}/user/selectUser?pageIndex={0}&username=${user.username}&status=${user.status }" />
 	  </td></tr>
 	</table>
 	<div style="height:10px;"></div>
