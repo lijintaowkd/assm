@@ -1,4 +1,4 @@
-package mvcaction.formatter;
+package org.fkit.formatter;
 
 import org.springframework.format.FormatterRegistrar;
 import org.springframework.format.FormatterRegistry;

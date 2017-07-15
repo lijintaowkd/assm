@@ -1,4 +1,4 @@
-package mvcaction.domain;
+package org.fkit.domain;
 
 import java.io.Serializable;
 

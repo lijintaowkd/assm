@@ -1,4 +1,4 @@
-package mvcaction.formatter;
+package org.fkit.formatter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

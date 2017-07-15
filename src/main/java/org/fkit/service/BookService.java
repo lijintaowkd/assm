@@ -1,9 +1,11 @@
-package mvcaction.service;
+package org.fkit.service;
 
 import java.util.List;
 
-import mvcaction.domain.Book;
-import mvcaction.domain.Category;
+import org.fkit.domain.Book;
+import org.fkit.domain.Category;
+
+
 
 
 public interface BookService {

@@ -1,9 +1,8 @@
-package mvcaction.validator;
+package org.fkit.validator;
 
 import java.util.Date;
 
-import mvcaction.domain.Product;
-
+import org.fkit.domain.Product;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;

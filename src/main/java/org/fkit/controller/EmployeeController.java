@@ -1,9 +1,10 @@
-package mvcaction.controller;
+package org.fkit.controller;
 
-import mvcaction.domain.Employee;
+
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.fkit.domain.Employee;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

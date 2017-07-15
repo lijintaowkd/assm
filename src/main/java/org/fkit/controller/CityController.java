@@ -1,4 +1,4 @@
-package mvcaction.controller;
+package org.fkit.controller;
 
 import java.util.HashMap;
 import java.util.Map;
