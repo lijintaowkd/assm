@@ -93,11 +93,16 @@
 							    <select name="job_id" style="width:143px;">
 					    			<option value="0">--请选择职位--</option>
 					    			<c:forEach items="${requestScope.jobs }" var="job">
+					    			 <c:if test="${employee.job.id eq job.id}">
+                                       <option value="${job.id}" selected="selected">${job.name}</option>
+                                     </c:if>
+                                     <c:if test="${employee.job.id ne job.id}">
 					    				<option value="${job.id }">${job.name }</option>
+					    			 </c:if>
 					    			</c:forEach>
 					    		</select>
-					    	姓名：<input type="text" name="name">
-					    	身份证号码：<input type="text" name="cardId" maxlength="18">
+					    	姓名：<input type="text" name="name" value="${employee.name }">
+					    	身份证号码：<input type="text" name="cardId" value="${employee.cardId }" maxlength="18">
 					    </td>
 					  </tr>
 					  <tr>
@@ -105,14 +110,19 @@
 					    	性别：
 					    		<select name="sex" style="width:143px;">
 					    			<option value="0">--请选择性别--</option>
-					    			<option value="1">男</option>
-					    			<option value="2">女</option>
+					    			<option value="1" <c:if test="${employee.sex eq 1}"> selected="selected" </c:if> >男</option>
+					    			<option value="2" <c:if test="${employee.sex eq 2}"> selected="selected" </c:if> >女</option>
 					    		</select>
-					    	手机：<input type="text" name="phone">
+					    	手机：<input type="text" name="phone" value="${employee.phone}">
 					    	所属部门：<select  name="dept_id" style="width:100px;">
 								   <option value="0">--部门选择--</option>
 								   <c:forEach items="${requestScope.depts }" var="dept">
+								   <c:if test="${employee.dept.id eq dept.id}">
+                                       <option value="${dept.id}" selected="selected">${dept.name}</option>
+                                     </c:if>
+                                     <c:if test="${employee.dept.id ne dept.id}">
 					    				<option value="${dept.id }">${dept.name }</option>
+					    			 </c:if>
 					    			</c:forEach>
 							</select>&nbsp;
 					    	<input type="submit" value="搜索"/>
@@ -181,7 +191,7 @@
 	  	        pageSize="${requestScope.pageModel.pageSize}" 
 	  	        recordCount="${requestScope.pageModel.recordCount}" 
 	  	        style="digg"
-	  	        submitUrl="${ctx}/employee/selectEmployee?pageIndex={0}"/>
+	  	        submitUrl="${ctx}/employee/selectEmployee?pageIndex={0}&"/>
 	  </td></tr>
 	</table>
 	<div style="height:10px;"></div>

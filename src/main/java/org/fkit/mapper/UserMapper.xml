@@ -103,7 +103,7 @@
 				#{loginname},
 			</if>
 			<if test="password != null">
-				#{password},
+				#{password}
 			</if>
 		</trim>
 	</insert>
