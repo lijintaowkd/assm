@@ -68,8 +68,6 @@ public class UserController {
 	 public String selectUser(Integer pageIndex,
 			 @ModelAttribute User user,
 			 Model model){
-		/*model.addAttribute("name", user.getUsername());
-		model.addAttribute("status", user.getStatus());*/
 		System.out.println("user = " + user);
 		PageModel pageModel = new PageModel();
 		if(pageIndex != null){
