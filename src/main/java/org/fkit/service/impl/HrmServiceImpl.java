@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.fkit.dao.DeptDao;
+import org.fkit.dao.JobDao;
 import org.fkit.dao.UserDao;
 import org.fkit.domain.Dept;
 import org.fkit.domain.Document;
@@ -25,6 +27,12 @@ public class HrmServiceImpl implements HrmService{
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private DeptDao deptDao;
+	
+	@Autowired
+	private JobDao jobDao;
 	
 	@Transactional(readOnly=true)
 	@Override
@@ -103,74 +111,87 @@ public class HrmServiceImpl implements HrmService{
 
 	@Override
 	public List<Dept> findDept(Dept dept, PageModel pageModel) {
-		// TODO Auto-generated method stub
-		return null;
+       Map<String,Object> params = new HashMap<>();
+       params.put("dept", dept);
+       int recordCount = deptDao.count(params);
+       System.out.println("recordCount-->>"+recordCount);
+       pageModel.setRecordCount(recordCount);
+       if(recordCount>0){
+    	   params.put("pageModel", pageModel);
+       }
+       List<Dept> depts = deptDao.selectByPage(params);
+		return depts;
 	}
 
 	@Override
 	public List<Dept> findAllDept() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return deptDao.selectAllDept();
 	}
 
 	@Override
 	public void removeDeptById(Integer id) {
-		// TODO Auto-generated method stub
 		
+		deptDao.deleteById(id);
 	}
 
 	@Override
 	public void addDept(Dept dept) {
-		// TODO Auto-generated method stub
 		
+		deptDao.save(dept);
 	}
 
 	@Override
 	public Dept findDeptById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return deptDao.selectById(id);
 	}
 
 	@Override
 	public void modifyDept(Dept dept) {
-		// TODO Auto-generated method stub
 		
+		deptDao.update(dept);
 	}
 
 	@Override
 	public List<Job> findAllJob() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return jobDao.selectAllJob();
 	}
 
 	@Override
 	public List<Job> findJob(Job job, PageModel pageModel) {
-		// TODO Auto-generated method stub
-		return null;
+        Map<String,Object> params = new HashMap<>();
+        params.put("job", job);
+        int recordCount = jobDao.count(params);
+        System.out.println("recordCount-->>"+recordCount);
+        pageModel.setRecordCount(recordCount);
+        if(recordCount>0){
+        	params.put("pageModel", pageModel);
+        }
+        List<Job> jobs = jobDao.selectByPage(params);
+		return jobs;
 	}
 
 	@Override
 	public void removeJobById(Integer id) {
-		// TODO Auto-generated method stub
-		
+		jobDao.deleteById(id);
 	}
 
 	@Override
 	public void addJob(Job job) {
-		// TODO Auto-generated method stub
-		
+	   jobDao.save(job);
 	}
 
 	@Override
 	public Job findJobById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return jobDao.selectById(id);
 	}
 
 	@Override
 	public void modifyJob(Job job) {
-		// TODO Auto-generated method stub
-		
+	   jobDao.update(job);
 	}
 
 	@Override
