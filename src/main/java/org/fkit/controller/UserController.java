@@ -1,9 +1,7 @@
 package org.fkit.controller;
 
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.fkit.domain.User;
 import org.fkit.service.HrmService;
 import org.fkit.util.common.HrmConstants;
