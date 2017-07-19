@@ -2,6 +2,7 @@ package org.fkit.controller;
 
 
 import java.util.List;
+
 import org.fkit.domain.Dept;
 import org.fkit.domain.Employee;
 import org.fkit.domain.Job;
@@ -95,6 +96,7 @@ public class EmployeeController {
 			// 判断是否有关联对象传递，如果有，创建关联对象
 			this.genericAssociation(job_id, dept_id, employee);
 			// 添加操作
+			System.out.println(employee);
 			hrmService.addEmployee(employee);
 			// 设置客户端跳转到查询请求
 			mv.setViewName("redirect:/employee/selectEmployee");

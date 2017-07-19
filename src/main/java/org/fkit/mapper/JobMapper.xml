@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.fkit.dao.JobDao">
+	<resultMap id="BaseResultMap" type="Job">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		</resultMap>
+	<sql id="Base_Column_List">
+		ID, NAME,REMARK
+    </sql>
+    <select id="selectAllJob" resultMap="BaseResultMap">
+		select * from job_inf 
+	</select>
+    
+	<select id="selectById" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select * from job_inf where ID = #{id}
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from job_inf where ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="Job">
+		update job_inf
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	<select id="selectByPage" parameterType="map" resultMap="BaseResultMap">
+		select * from job_inf
+		<where>
+			<if test="job !=null">
+				<if test="job.name != null and job.name !=''">
+					name like concat('%',#{job.name},'%')
+				</if>
+			</if>
+		</where>
+		<if test="pageModel !=null">
+				limit #{pageModel.firstLimitParam} ,#{pageModel.pageSize}
+			</if>
+	</select>
+	<select id="count" parameterType="map" resultType="Integer">
+		select count(*) from job_inf
+		<where>
+			<if test="job !=null">
+				<if test="job.name != null and job.name !=''">
+					name like concat('%',#{job.name},'%')
+				</if>
+    		</if>
+		</where>
+	</select>
+	<insert id="save" parameterType="job">
+		insert into job_inf
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+		</trim>
+	</insert>
+</mapper>
