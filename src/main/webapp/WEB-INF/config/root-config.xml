@@ -20,9 +20,6 @@
 
 	<import resource="mvc.xml" />
 	<import resource="flow.xml" />
-	<import resource="domain.xml" />
-	<import resource="dataaccess.xml" />
-
 	<mybatis:scan base-package="org.fkit.dao"/>
 
 	<!-- JDBC事务管理器 -->

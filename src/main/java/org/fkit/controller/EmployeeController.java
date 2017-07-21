@@ -16,12 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-/**   
- * @Description: 处理员工请求控制器
- * <br>网站：<a href="http://www.fkit.org">疯狂Java</a> 
- * @author 肖文吉	36750064@qq.com   
- * @version V1.0   
- */
+
 @Controller
 public class EmployeeController {
 	/**
