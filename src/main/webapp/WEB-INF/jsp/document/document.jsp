@@ -119,7 +119,7 @@
 				    <table width="100%" border="0" cellpadding="0" cellspacing="0">
 					  <tr>
 					    <td class="font3">
-					    	标题：<input type="text" name="title" />
+					    	标题：<input type="text" name="title" value="${document.title }"/>
 					    	<input type="submit"  value="搜索"/>
 					    	<input type="button" id="delete" value="删除">
 					    </td>
@@ -174,7 +174,7 @@
 	  	      pageIndex="${pageModel.pageIndex}" 
 	  	      pageSize="${pageModel.pageSize}" 
 	  	      recordCount="${pageModel.recordCount}" 
-	  	      submitUrl="${ctx}/document/selectDocument.action?pageModel.pageIndex={0}&document.title=${document.title}"
+	  	      submitUrl="${ctx}/document/selectDocument?pageIndex={0}&title=${document.title}"
 	  	      style="flickr"
 	  	      />
 	  </td></tr>
