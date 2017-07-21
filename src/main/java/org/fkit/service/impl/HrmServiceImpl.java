@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.fkit.dao.DeptDao;
+
 import org.fkit.dao.DocumentDao;
 import org.fkit.dao.EmployeeDao;
+
 import org.fkit.dao.JobDao;
 import org.fkit.dao.NoticeDao;
 import org.fkit.dao.UserDao;
@@ -37,6 +39,7 @@ public class HrmServiceImpl implements HrmService{
 	@Autowired
 	private JobDao jobDao;
 	
+
 	@Autowired
 	private EmployeeDao employeeDao;
 	
@@ -46,6 +49,7 @@ public class HrmServiceImpl implements HrmService{
 	@Autowired
 	private DocumentDao documentDao;
 	
+
 	@Transactional(readOnly=true)
 	@Override
 	public User login(String loginname, String password) {
@@ -93,37 +97,32 @@ public class HrmServiceImpl implements HrmService{
 
 	@Override
 	public List<Employee> findEmployee(Employee employee, PageModel pageModel) {
-		  Map<String,Object> params = new HashMap<>();
-	        params.put("employee", employee);
-	        int recordCount =employeeDao.count(params);
-	        System.out.println("recordCount -->"+recordCount);
-	        pageModel.setRecordCount(recordCount);
-	        if(recordCount>0){
-	        	params.put("pageModel", pageModel);
-	        }
-	        List<Employee> employees = employeeDao.selectByPage(params);
-			return employees;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void removeEmployeeById(Integer id) {
-		 employeeDao.deleteById(id);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public Employee findEmployeeById(Integer id) {
-		
-		return employeeDao.selectById(id);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void addEmployee(Employee employee) {
-		employeeDao.save(employee);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void modifyEmployee(Employee employee) {
-		employeeDao.update(employee);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

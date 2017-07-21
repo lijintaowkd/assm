@@ -30,17 +30,6 @@ public class Employee implements Serializable {
 	public Employee() {
 		super();
 	}
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", dept=" + dept + ", job=" + job
-				+ ", name=" + name + ", cardId=" + cardId + ", address="
-				+ address + ", postCode=" + postCode + ", tel=" + tel
-				+ ", phone=" + phone + ", qqNum=" + qqNum + ", email=" + email
-				+ ", sex=" + sex + ", party=" + party + ", birthday="
-				+ birthday + ", race=" + race + ", education=" + education
-				+ ", speciality=" + speciality + ", hobby=" + hobby
-				+ ", remark=" + remark + ", createDate=" + createDate + "]";
-	}
 	public Integer getId() {
 		return id;
 	}
