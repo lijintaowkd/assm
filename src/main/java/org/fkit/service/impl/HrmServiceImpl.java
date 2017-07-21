@@ -5,7 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.fkit.dao.DeptDao;
+
+import org.fkit.dao.DocumentDao;
+import org.fkit.dao.EmployeeDao;
+
 import org.fkit.dao.JobDao;
+import org.fkit.dao.NoticeDao;
 import org.fkit.dao.UserDao;
 import org.fkit.domain.Dept;
 import org.fkit.domain.Document;
@@ -34,6 +39,17 @@ public class HrmServiceImpl implements HrmService{
 	@Autowired
 	private JobDao jobDao;
 	
+
+	@Autowired
+	private EmployeeDao employeeDao;
+	
+	@Autowired
+	private NoticeDao noticeDao;
+	
+	@Autowired
+	private DocumentDao documentDao;
+	
+
 	@Transactional(readOnly=true)
 	@Override
 	public User login(String loginname, String password) {
@@ -196,62 +212,100 @@ public class HrmServiceImpl implements HrmService{
 
 	@Override
 	public List<Notice> findNotice(Notice notice, PageModel pageModel) {
-		// TODO Auto-generated method stub
-		return null;
+		 Map<String,Object> params = new HashMap<>();
+	        params.put("notice", notice);
+	        int recordCount = noticeDao.count(params);
+	        System.out.println("recordCount-->>"+recordCount);
+	        pageModel.setRecordCount(recordCount);
+	        if(recordCount>0){
+	        	params.put("pageModel", pageModel);
+	        }
+	        List<Notice> notices = noticeDao.selectByPage(params);
+			return notices;
 	}
 
 	@Override
 	public Notice findNoticeById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return noticeDao.selectById(id);
 	}
 
 	@Override
 	public void removeNoticeById(Integer id) {
-		// TODO Auto-generated method stub
-		
+		noticeDao.deleteById(id);
 	}
 
 	@Override
 	public void addNotice(Notice notice) {
-		// TODO Auto-generated method stub
-		
+		noticeDao.save(notice);
 	}
 
 	@Override
 	public void modifyNotice(Notice notice) {
-		// TODO Auto-generated method stub
-		
+		noticeDao.update(notice);
 	}
 
+	/*****************文件接口实现*************************************/
+
+	/**
+	 * HrmService接口findDocument方法实现
+	 * @see { HrmService }
+	 * */
+	@Transactional(readOnly=true)
 	@Override
 	public List<Document> findDocument(Document document, PageModel pageModel) {
-		// TODO Auto-generated method stub
-		return null;
+		/** 当前需要分页的总数据条数  */
+		Map<String,Object> params = new HashMap<>();
+		params.put("document", document);
+		int recordCount = documentDao.count(params);
+		pageModel.setRecordCount(recordCount);
+		
+		if(recordCount > 0){
+	        /** 开始分页查询数据：查询第几页的数据 */
+		    params.put("pageModel", pageModel);
+	    }
+		
+		List<Document> documents = documentDao.selectByPage(params);
+		 
+		return documents;
 	}
 
+	/**
+	 * HrmService接口addDocument方法实现
+	 * @see { HrmService }
+	 * */
 	@Override
 	public void addDocument(Document document) {
-		// TODO Auto-generated method stub
+		documentDao.save(document);
 		
 	}
-
-	@Override
-	public Document findDocumentById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/**
+	 * HrmService接口removeDocumentById方法实现
+	 * @see { HrmService }
+	 * */
 	@Override
 	public void removeDocumentById(Integer id) {
-		// TODO Auto-generated method stub
+		documentDao.deleteById(id);
 		
 	}
-
+	/**
+	 * HrmService接口modifyDocument方法实现
+	 * @see { HrmService }
+	 * */
 	@Override
 	public void modifyDocument(Document document) {
-		// TODO Auto-generated method stub
+		documentDao.update(document);
 		
+	}
+	/**
+	 * HrmService接口findDocumentById方法实现
+	 * @see { HrmService }
+	 * */
+	@Transactional(readOnly=true)
+	@Override
+	public Document findDocumentById(Integer id) {
+		
+		return documentDao.selectById(id);
 	}
 
 	

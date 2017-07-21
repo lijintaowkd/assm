@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.fkit.dao.DocumentDao">
+	<resultMap id="BaseResultMap" type="Document">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="filename" property="fileName" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+		<association property="user" column="USER_ID"
+		 select="org.fkit.dao.UserDao.selectById" fetchType="eager" javaType="User"
+		/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, TITLE,filename,REMARK,CREATE_DATE,USER_ID
+    </sql>
+    <select id="selectAllDocument" resultMap="BaseResultMap">
+		select * from document_inf 
+	</select>
+    
+	<select id="selectById" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select * from document_inf where ID = #{id}
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from document_inf where ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="Document">
+		update document_inf
+		<set>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="fileName != null">
+				filename = #{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="user != null">
+				USER_ID = #{user.id,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	<select id="selectByPage" parameterType="map" resultMap="BaseResultMap">
+		select * from document_inf
+		<where>
+			<if test="document !=null">
+				<if test="document.title != null and document.title !=''">
+					TITLE like concat('%',#{document.title},'%')
+				</if>
+			</if>
+		</where>
+		<if test="pageModel !=null">
+				limit #{pageModel.firstLimitParam} ,#{pageModel.pageSize}
+			</if>
+	</select>
+	<select id="count" parameterType="map" resultType="Integer">
+		select count(*) from document_inf
+		<where>
+			<if test="document !=null">
+				<if test="document.title != null and document.title !=''">
+					TITLE like concat('%',#{document.title},'%')
+				</if>
+			</if>
+		</where>
+	</select>
+	<insert id="save" parameterType="Document">
+		insert into document_inf
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="fileName != null">
+				filename,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="user.id != null">
+				USER_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="title != null">
+			  #{title},
+			</if>
+			<if test="fileName != null">
+			  #{fileName},
+			</if>
+			<if test="remark != null">
+			  #{remark},
+			</if>
+			<if test="user.id != null">
+			  #{user.id},
+			</if>
+		</trim>
+	</insert>
+</mapper>
