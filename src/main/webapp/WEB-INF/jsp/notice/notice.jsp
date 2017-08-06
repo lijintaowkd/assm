@@ -24,10 +24,8 @@
 	<link href="${ctx}/css/pager.css" type="text/css" rel="stylesheet" />
 	<script type="text/javascript">
 	$(function(){
-		
-			/** 获取上一次选中的部门数据 */
 	 	   var boxs  = $("input[type='checkbox'][id^='box_']");
-			
+
 	 	  /** 给全选按钮绑定点击事件  */
 	    	$("#checkAll").click(function(){
 	    		// this是checkAll  this.checked是true
@@ -101,13 +99,13 @@
 		  <table width="100%" border="0" cellpadding="0" cellspacing="10" class="main_tab">
 		    <tr>
 			  <td class="fftd">
-			  	<form name="noticeform" method="post" id="noticeform" action="${ctx}/notice/selectNotice">
+			  	<form name="noticeform" method="post" id="noticeform" action="${ctx }/notice/selectNotice" >
 				    <table width="100%" border="0" cellpadding="0" cellspacing="0">
 					  <tr>
 					    <td class="font3">
 					    	公告名称：<input type="text" name="title" value="${notice.title}">
 					    	公告内容：<input type="text" name="content" value="${notice.content}">
-					    	 <input type="submit" value="搜索"/>
+					    	 <input id="search" type="submit" value="搜索"/>
 					    	<input id="delete" type="button" value="删除"/>
 					    </td>
 					  </tr>
@@ -122,7 +120,7 @@
 	  <!-- 数据展示区 -->
 	  <tr valign="top">
 	    <td height="20">
-		  <table width="100%" border="1" cellpadding="5" cellspacing="0" style="border:#c2c6cc 1px solid; border-collapse:collapse;">
+		  <table id="show" width="100%" border="1" cellpadding="5" cellspacing="0" style="border:#c2c6cc 1px solid; border-collapse:collapse;">
 		    <tr class="main_trbg_tit" align="center">
 			  <td><input type="checkbox" name="checkAll" id="checkAll"></td>
 			  <td>公告名称</td>

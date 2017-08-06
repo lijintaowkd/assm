@@ -68,7 +68,7 @@ public class Chapter02 {
         String token = UUID.randomUUID().toString();
 
         System.out.println("We'll refresh our session...");
-        updateToken(conn, token, "username", "itemX");
+        updateToken(conn, token, "lijintao", "itemX");
         System.out.println("And add an item to the shopping cart");
         addToCart(conn, token, "itemY", 3);
         Map<String,String> r = conn.hgetAll("cart:" + token);
@@ -186,7 +186,7 @@ public class Chapter02 {
         if (item != null) {
             conn.zadd("viewed:" + token, timestamp, item);
             conn.zremrangeByRank("viewed:" + token, 0, -26);
-            conn.zincrby("viewed:", -1, item);
+            //conn.zincrby("viewed:", -1, item);
         }
     }
 
