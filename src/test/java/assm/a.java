@@ -3,6 +3,7 @@ class Annoyance extends Exception {}
 class Sneeze extends Annoyance {}
 
 public class a{
+
     String a = "234";
     public static void main(String[] args) 
         throws Exception {
