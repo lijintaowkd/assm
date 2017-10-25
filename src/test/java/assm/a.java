@@ -4,7 +4,8 @@ class Sneeze extends Annoyance {}
 
 public class a{
 
-    String a = "ddcffd";
+    String a = "asgsh";
+    String b ;
 
     public static void main(String[] args) 
         throws Exception {
