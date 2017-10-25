@@ -4,6 +4,8 @@ class Sneeze extends Annoyance {}
 
 public class a{
 
+    String a = "1234999";
+
     public static void main(String[] args) 
         throws Exception {
         try {
