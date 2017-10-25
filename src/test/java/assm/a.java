@@ -4,7 +4,7 @@ class Sneeze extends Annoyance {}
 
 public class a{
 
-    String a = "1234999";
+    String a = "12348890";
 
     public static void main(String[] args) 
         throws Exception {
