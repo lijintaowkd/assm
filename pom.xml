@@ -451,6 +451,11 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.2.4.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>3.14-beta1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>maven</finalName>

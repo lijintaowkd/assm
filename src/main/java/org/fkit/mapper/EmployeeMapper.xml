@@ -82,7 +82,7 @@
 				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="dept != null">
-				DEPT_ID = #{dept.id,jdbcType=TIMESTAMP},
+				DEPT_ID = #{dept.id,jdbcType=BIGINT},
 			</if>
 			<if test="job != null">
 				JOB_ID = #{job.id,jdbcType=BIGINT},
