@@ -1,12 +1,15 @@
 package org.fkit.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fkit.domain.Dept;
 import org.fkit.domain.Employee;
 import org.fkit.domain.Job;
 import org.fkit.service.HrmService;
+import org.fkit.util.common.ExportExcelUtils;
 import org.fkit.util.tag.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -25,15 +31,16 @@ public class EmployeeController {
 	@Autowired
 	@Qualifier("hrmService")
 	private HrmService hrmService;
-			
+
 	/**
-	 * 处理查询请求
-	 * @param pageIndex 请求的是第几页
-	 * @param String job_id 职位编号
-	 * @param String dept_id 部门编号
-	 * @param employee 模糊查询参数
-	 * @param Model model
-	 * */
+	 *
+	 * @param pageIndex
+	 * @param job_id
+	 * @param dept_id
+	 * @param employee
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/employee/selectEmployee")
 	 public String selectEmployee(Integer pageIndex,
 			 Integer job_id,Integer dept_id,
@@ -54,6 +61,8 @@ public class EmployeeController {
 		// 查询员工信息    
 		List<Employee> employees = hrmService.findEmployee(employee,pageModel);
 		// 设置Model数据
+
+		model.addAttribute("employee", employee);
 		model.addAttribute("employees", employees);
 		model.addAttribute("jobs", jobs);
 		model.addAttribute("depts", depts);
@@ -62,15 +71,63 @@ public class EmployeeController {
 		return "employee/employee";
 		
 	}
-	
-	/**
-	 * 处理添加员工请求
-	 * @param String flag 标记， 1表示跳转到添加页面，2表示执行添加操作
-	 * @param String job_id 职位编号
-	 * @param String dept_id 部门编号
-	 * @param Employee employee 接收添加参数
-	 * @param ModelAndView mv 
-	 * */
+	@RequestMapping(value="/employee/exportExcel")
+	public String exportExcelEmployee( Integer job_id,Integer dept_id,
+									  @ModelAttribute Employee employee,
+									  HttpServletRequest request, HttpServletResponse response) {
+		try {
+			// 模糊查询时判断是否有关联对象传递，如果有，创建并封装关联对象
+			this.genericAssociation(job_id, dept_id, employee);
+			// 创建分页对象
+			PageModel pageModel = new PageModel();
+			// 查询职位信息，用于模糊查询
+			List<Job> jobs = hrmService.findAllJob();
+			// 查询部门信息 ，用于模糊查询
+			List<Dept> depts = hrmService.findAllDept();
+			// 查询员工信息
+			List<Employee> employees = hrmService.findAllEmployees(employee);
+			String title = "员工信息";
+			String[] rowsName = new String[]{"员工id", "姓名", "性别", "手机号码", "邮箱", "职位", "学历",
+					"身份证号码", "部门", "联系地址", "建档日期"};
+			List<Object[]> dataList = new ArrayList<Object[]>();
+			Object[] objs = null;
+			for (int i = 0; i < employees.size(); i++) {
+				Employee emp = employees.get(i);
+				objs = new Object[rowsName.length];
+				objs[0] = emp.getId();
+				objs[1] = emp.getName();
+				objs[2] = emp.getSex();
+				objs[3] = emp.getPhone();
+				objs[4] = emp.getEmail();
+				objs[5] = emp.getJob().getName();
+				objs[6] = emp.getEducation();
+				objs[7] = emp.getCardId();
+				objs[8] = emp.getDept().getName();
+				objs[9] = emp.getAddress();
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String date = df.format(emp.getCreateDate());
+				objs[10] = date;
+				dataList.add(objs);
+			}
+			ExportExcelUtils ex = new ExportExcelUtils(title, rowsName, dataList, response);
+			ex.exportData();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
+		/**
+	 *
+	 * @param flag
+	 * @param job_id
+	 * @param dept_id
+	 * @param employee
+	 * @param mv
+	 * @return
+	 */
 	@RequestMapping(value="/employee/addEmployee")
 	 public ModelAndView addEmployee(
 			 String flag,
@@ -101,11 +158,7 @@ public class EmployeeController {
 		
 	}
 	
-	/**
-	 * 处理删除员工请求
-	 * @param String ids 需要删除的id字符串
-	 * @param ModelAndView mv
-	 * */
+
 	@RequestMapping(value="/employee/removeEmployee")
 	 public ModelAndView removeEmployee(String ids,ModelAndView mv){
 		// 分解id字符串
@@ -121,15 +174,7 @@ public class EmployeeController {
 		// 返回ModelAndView
 		return mv;
 	}
-	
-	/**
-	 * 处理修改员工请求
-	 * @param String flag 标记，1表示跳转到修改页面，2表示执行修改操作
-	 * @param String job_id 职位编号
-	 * @param String dept_id 部门编号
-	 * @param Employee employee  要修改员工的对象
-	 * @param ModelAndView mv
-	 * */
+
 	@RequestMapping(value="/employee/updateEmployee")
 	 public ModelAndView updateEmployee(
 			 String flag,

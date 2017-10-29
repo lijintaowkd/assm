@@ -1,3 +1,4 @@
+/*
 package redis.test.java.cart;
 
 import static org.junit.Assert.*;
@@ -215,3 +216,4 @@ public class CartTest {
 	}
 	
 }
+*/

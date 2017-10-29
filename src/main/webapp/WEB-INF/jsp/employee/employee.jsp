@@ -90,14 +90,14 @@
 					  <tr>
 					    <td class="font3">
 					    	职位：
-							    <select name="job_id" style="width:143px;">
+							    <select name="job_id"  style="width:143px;">
 					    			<option value="0">--请选择职位--</option>
 					    			<c:forEach items="${requestScope.jobs }" var="job">
-					    				<option value="${job.id }">${job.name }</option>
+					    				<option value="${job.id }"<c:if test="${job.id ==employee.job.id}">selected</c:if> >${job.name }</option>
 					    			</c:forEach>
 					    		</select>
-					    	姓名：<input type="text" name="name">
-					    	身份证号码：<input type="text" name="cardId" maxlength="18">
+					    	姓名：<input type="text" name="name" value="${employee.name}">
+					    	身份证号码：<input type="text" name="cardId" maxlength="18" value="${employee.cardId}">
 					    </td>
 					  </tr>
 					  <tr>
@@ -105,20 +105,23 @@
 					    	性别：
 					    		<select name="sex" style="width:143px;">
 					    			<option value="0">--请选择性别--</option>
-					    			<option value="1">男</option>
-					    			<option value="2">女</option>
+					    			<option value="1"<c:if test="${'1' eq employee.sex}">selected</c:if>>男</option>
+					    			<option value="2"<c:if test="${'2' eq employee.sex}">selected</c:if>>女</option>
 					    		</select>
-					    	手机：<input type="text" name="phone">
+					    	手机：<input type="text" name="phone" value="${employee.phone}">
 					    	所属部门：<select  name="dept_id" style="width:100px;">
 								   <option value="0">--部门选择--</option>
 								   <c:forEach items="${requestScope.depts }" var="dept">
-					    				<option value="${dept.id }">${dept.name }</option>
+					    				<option value="${dept.id }"<c:if test="${dept.id  == employee.dept.id }">selected</c:if>>${dept.name }</option>
 					    			</c:forEach>
 							</select>&nbsp;
 					    	<input type="submit" value="搜索"/>
 					    	<input id="delete" type="button" value="删除"/>
 					    </td>
 					  </tr>
+					<tr>
+						<td><a href="${pageContext.request.contextPath}/employee/exportExcel">导出数据</a></td>
+					</tr>
 					</table>
 				</form>
 			  </td>
@@ -166,7 +169,7 @@
 					  	<f:formatDate value="${employee.createDate}" 
 								type="date" dateStyle="long"/>
 					  </td>
-					  <td align="center" width="40px;"><a href="${ctx}/employee/updateEmployee?flag=1&id=${employee.id}">
+					  <td align="center" width="40px;"><a href="${ctx}/employee/updateEmployee?flag=1&name=${employee.name}">
 							<img title="修改" src="${ctx}/images/update.gif"/></a>
 					  </td>
 				</tr>
@@ -181,7 +184,7 @@
 	  	        pageSize="${requestScope.pageModel.pageSize}" 
 	  	        recordCount="${requestScope.pageModel.recordCount}" 
 	  	        style="digg"
-	  	        submitUrl="${ctx}/employee/selectEmployee?pageIndex={0}"/>
+	  	        submitUrl="${ctx}/employee/selectEmployee?pageIndex={0}&name=${employee.name}&cardId=${employee.cardId}&sex=${employee.sex}&phone=${employee.phone}"/>
 	  </td></tr>
 	</table>
 	<div style="height:10px;"></div>

@@ -59,7 +59,9 @@ public interface HrmService {
 	 * @return Dept对象的List集合
 	 * */
 	List<Employee> findEmployee(Employee employee,PageModel pageModel);
-	
+
+	List<Employee> findAllEmployees(Employee employee);
+
 	/**
 	 * 根据id删除员工
 	 * @param id

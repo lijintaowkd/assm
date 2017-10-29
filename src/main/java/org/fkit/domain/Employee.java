@@ -17,7 +17,7 @@ public class Employee implements Serializable {
     private String phone;
     private String qqNum;
     private String email;
-    private String sex;
+    private Integer sex;
     private String party;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birthday;
@@ -26,7 +26,16 @@ public class Employee implements Serializable {
     private String speciality;
     private String hobby;
     private String remark;
-    private Date createDate;
+
+	public Integer getSex() {
+		return sex;
+	}
+
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
+
+	private Date createDate;
 	public Employee() {
 		super();
 	}
@@ -95,12 +104,6 @@ public class Employee implements Serializable {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getSex() {
-		return sex;
-	}
-	public void setSex(String sex) {
-		this.sex = sex;
 	}
 	public String getParty() {
 		return party;

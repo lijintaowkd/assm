@@ -12,7 +12,7 @@ public interface EmployeeDao {
   
   Integer count(Map<String,Object> params);
    
-  List<Employee> selectAllEmployee();
+  List<Employee> selectAllEmployees(Map<String,Object> params);
   
   Employee selectById(int id);
   

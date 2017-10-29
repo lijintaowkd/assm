@@ -220,6 +220,14 @@ public class HrmServiceImpl implements HrmService{
 	    List<Employee> employees = employeeDao.selectByPage(params);
 	    return employees;
 	}
+
+	@Override
+	public List<Employee> findAllEmployees(Employee employee) {
+		Map<String,Object> params = new HashMap<>();
+		params.put("employee", employee);
+		return employeeDao.selectAllEmployees(params);
+	}
+
 	/**
 	 * HrmService接口removeEmployeeById方法实现
 	 * @see { HrmService }

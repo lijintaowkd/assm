@@ -90,6 +90,33 @@
 		</set>
 		where id=#{id}
 	</update>
+
+	<select id="selectAllEmployees" parameterType="map" resultMap="BaseResultMap">
+		select * from employee_inf
+		<where>
+			<if test="employee !=null">
+				<if test="employee.dept != null and employee.dept.id !=null and employee.dept.id!=0">
+					DEPT_ID = #{employee.dept.id}
+				</if>
+				<if test="employee.job != null and employee.job.id !=null and employee.job.id!=0">
+					and   JOB_ID= #{employee.job.id}
+				</if>
+				<if test="employee.name != null and employee.name !=''">
+					and	name like concat('%',#{employee.name},'%')
+				</if>
+				<if test="employee.phone != null and employee.phone !=''">
+					and	phone like concat('%',#{employee.phone},'%')
+				</if>
+				<if test="employee.cardId != null and employee.cardId !=''">
+					and	CARD_ID like concat('%',#{employee.cardId},'%')
+				</if>
+				<if test="employee.sex != null and employee.sex !=0">
+					and	sex = #{employee.sex}
+				</if>
+			</if>
+		</where>
+	</select>
+
 	<select id="selectByPage" parameterType="map" resultMap="BaseResultMap">
 		select * from employee_inf
 		<where>
